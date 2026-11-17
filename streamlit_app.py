@@ -256,8 +256,9 @@ if plan:
                  use_container_width=True, hide_index=True)
     with st.expander("Zahlungen als erledigt markieren"):
         for i, (a, b, c) in enumerate(plan):
-            key = f"done_{i}_{a}_{b}_{c}"
-            if st.checkbox(f"{a} → {b}: {euro(c)}", key=key):
+            col_text, col_button = st.columns([4, 1])
+            col_text.write(f"{a} → {b}: **{euro(c)}**")
+            if col_button.button("Erledigt", key=f"done_{i}_{a}_{b}_{c}"):
                 st.session_state.erledigt.append((a, b, c))
                 st.rerun()
 else:
